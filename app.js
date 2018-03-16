@@ -7,7 +7,10 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(bodyParser.json());
-app.listen((process.env.PORT || 3000));
+var port = process.env.PORT || 8000
+app.listen(port, function() {
+    console.log("App is running on port " + port);
+});
 
 // Server index page
 app.get("/", function(req, res) {
