@@ -42,12 +42,13 @@ app.get("/webhook", function(req, res) {
 
 app.post('/webhook', function(req, res)
 {
-    console.log(req);
     if (req.body.object === 'page') 
     {
         req.body.entry.forEach(entry => {
             entry.messaging.forEach(event => {
-                if (event.message && event.message.text) {
+                if (event.message && event.message.text) 
+                {
+                    console.log(req);
                     sendMessage(event);
                 }
             });
