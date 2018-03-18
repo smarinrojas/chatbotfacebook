@@ -41,7 +41,7 @@ app.post('/', function(req, res)
         req.body.entry.forEach(entry => {
             entry.messaging.forEach(event => {
                 if (event.message && event.message.text) {
-                    processMessage(event);
+                    sendMessage(event);
                 }
             });
         });
@@ -51,20 +51,24 @@ app.post('/', function(req, res)
 });
 
 
-const sendTextMessage = (senderId, text) => {
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-            qs: {
-                access_token: FACEBOOK_ACCESS_TOKEN
-            },
-        method: ‘POST’,
-        json: {
-            recipient: {
-                id: senderId
-            },
-            message: {
-                text
-            },
-        }
-    });
-};
+
+function sendMessage(event) {
+  let sender = event.sender.id;
+  let text = event.message.text;
+
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token: PAGE_ACCESS_TOKEN},
+    method: 'POST',
+    json: {
+      recipient: {id: sender},
+      message: {text: text}
+    }
+  }, function (error, response) {
+    if (error) {
+        console.log('Error sending message: ', error);
+    } else if (response.body.error) {
+        console.log('Error: ', response.body.error);
+    }
+  });
+}
