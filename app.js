@@ -22,6 +22,12 @@ var APP_SECRET_KEY = "0d7cb6bfaedc1250699525be7d7bec1a";
 var APP_IDENTIFIER = "2038645103020167";
 
 
+app.get('/terms', function(req, res)
+{
+  res.send("Terms and conditions!");
+});
+
+
 // Facebook Webhook
 // Used for verification
 app.get("/webhook", function(req, res) {
