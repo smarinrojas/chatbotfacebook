@@ -146,9 +146,9 @@ function GetHotelMessage()
                 "template_type":"generic",
                 "elements":[
                    {
-                    "title":"Welcome to Peter'\''s Hats",
-                    "image_url":"https://petersfancybrownhats.com/company_image.png",
-                    "subtitle":"We'\''ve got the right hat for everyone.",
+                    "title":"Welcome to Peter's Hats",
+                    "image_url":"https://photos.mandarinoriental.com/is/image/MandarinOriental/santiago-hotel-exterior-pool?wid=720&hei=1080&fmt=jpeg&qlt=75,0&op_sharpen=0&resMode=sharp2&op_usm=0.8,0.8,5,0&iccEmbed=0&printRes=72&fit=crop",
+                    "subtitle":"We've got the right hat for everyone.",
                     "default_action": {
                       "type": "web_url",
                       "url": "https://peterssendreceiveapp.ngrok.io/view?item=103",
