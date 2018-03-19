@@ -1,11 +1,15 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var request = require("request");
+var apiai = require('apiai');
+
+var apiaiapp = apiai("21cfd0e76ebf40eab3bf515b96984d90", { language: 'es' });
 
 var app = express();
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+
 app.use(bodyParser.json());
 
 app.listen(process.env.PORT || 3000, function() {
@@ -22,12 +26,10 @@ var FACEBOOK_ACCESS_TOKEN = "EAAcZBIw0wSIcBAFYodwZBq40CdQnZC2HzVoFcRKbQHWlLNbNwP
 var APP_SECRET_KEY = "0d7cb6bfaedc1250699525be7d7bec1a";
 var APP_IDENTIFIER = "2038645103020167";
 
-
 app.get('/terms', function(req, res)
 {
   res.send("Terms and conditions!");
 });
-
 
 // Facebook Webhook
 // Used for verification
@@ -49,8 +51,7 @@ app.post('/webhook', function(req, res)
             entry.messaging.forEach(event => {
                 if (event.message && event.message.text) 
                 {
-                    console.log(req);
-                    sendMessage(event);
+                    processMessage(event);
                 }
             });
         });
@@ -60,10 +61,9 @@ app.post('/webhook', function(req, res)
 });
 
 
-
-function sendMessage(event) {
+function SendMessageFacebookChat(event, text_response) 
+{
   let sender = event.sender.id;
-  let text = event.message.text;
 
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -71,7 +71,7 @@ function sendMessage(event) {
     method: 'POST',
     json: {
       recipient: {id: sender},
-      message: {text: text}
+      message: {text: text_response}
     }
   }, function (error, response) {
     if (error) {
@@ -80,4 +80,27 @@ function sendMessage(event) {
         console.log('Error: ', response.body.error);
     }
   });
+}
+
+
+//APIAI integration
+function processMessage(event)
+{
+    console.log("processing message");
+    var request = apiaiapp.textRequest(event.message.text, 
+    {
+        sessionId: 'sessionidprueba'
+    });
+
+    request.on('response', function(response) 
+    {
+        console.log(response);
+        var text_response = response.result.fulfillment.speech;
+        SendMessageFacebookChat(event, text_response)
+    });
+
+    request.on('error', function(error) {
+        console.log(error);
+    });
+
 }
