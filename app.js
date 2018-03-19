@@ -87,19 +87,19 @@ function SendMessageFacebookChat(event, text_response)
 function processMessage(event)
 {
     console.log("processing message");
-    var request = apiaiapp.textRequest(event.message.text, 
+    var requestapiai = apiaiapp.textRequest(event.message.text, 
     {
         sessionId: 'sessionidprueba'
     });
 
-    request.on('response', function(response) 
+    requestapiai.on('response', function(response) 
     {
         console.log(response);
         var text_response = response.result.fulfillment.speech;
         SendMessageFacebookChat(event, text_response)
     });
 
-    request.on('error', function(error) {
+    requestapiai.on('error', function(error) {
         console.log(error);
     });
 
