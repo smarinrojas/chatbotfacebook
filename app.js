@@ -45,6 +45,7 @@ app.get("/webhook", function(req, res) {
 
 app.post('/webhook', function(req, res)
 {
+    console.log("facebook request");
     if (req.body.object === 'page') 
     {
         req.body.entry.forEach(entry => {
