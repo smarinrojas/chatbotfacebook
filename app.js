@@ -152,8 +152,7 @@ function GetHotelMessage()
                       "type": "web_url",
                       "url": "https://nodetestproject.herokuapp.com/",
                       "messenger_extensions": false,
-                      "webview_height_ratio": "tall",
-                      "fallback_url": "https://nodetestproject.herokuapp.com/"
+                      "webview_height_ratio": "tall"
                     },
                     "buttons":[
                       {
