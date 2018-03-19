@@ -102,6 +102,7 @@ function processMessage(event)
         var message = GetTextMessage(text_response);
 
         var action = response.result.action; 
+        var actionIncomplete  = response.result.actionIncomplete;
 
         //Action completed
         if(action == "search_availability_trip" && !actionIncomplete)
