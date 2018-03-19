@@ -62,7 +62,7 @@ app.post('/webhook', function(req, res)
 });
 
 
-function SendMessageFacebookChat(event, text_response) 
+function SendMessageFacebookChat(event, message) 
 {
   let sender = event.sender.id;
 
@@ -72,7 +72,7 @@ function SendMessageFacebookChat(event, text_response)
     method: 'POST',
     json: {
       recipient: {id: sender},
-      message: {text: text_response}
+      message: message
     }
   }, function (error, response) {
     if (error) {
@@ -98,7 +98,27 @@ function processMessage(event)
     {
         console.log(response);
         var text_response = response.result.fulfillment.speech;
-        SendMessageFacebookChat(event, text_response)
+
+        var message = GetTextMessage(text_response);
+
+        var action = response.result.action; 
+
+        //Action completed
+        if(action == "search_availability_trip" && !actionIncomplete)
+        {
+            console.log("sending air message");
+            message = GetAirMessage();
+        }
+
+        if(action == "search_availability_hotel" && !actionIncomplete)
+        {
+            console.log("sending hotel message");
+            message = GetHotelMessage();
+
+        }
+
+        SendMessageFacebookChat(event, message);
+        
     });
 
     requestapiai.on('error', function(error) {
@@ -106,5 +126,124 @@ function processMessage(event)
     });
 
     requestapiai.end();
+
+}
+
+function GetTextMessage(text_response)
+{
+    return {text: text_response};
+}
+
+function GetHotelMessage()
+{
+    var hotel_message =
+        "message":{
+            "attachment":{
+              "type":"template",
+              "payload":{
+                "template_type":"generic",
+                "elements":[
+                   {
+                    "title":"Welcome to Peter'\''s Hats",
+                    "image_url":"https://petersfancybrownhats.com/company_image.png",
+                    "subtitle":"We'\''ve got the right hat for everyone.",
+                    "default_action": {
+                      "type": "web_url",
+                      "url": "https://peterssendreceiveapp.ngrok.io/view?item=103",
+                      "messenger_extensions": true,
+                      "webview_height_ratio": "tall",
+                      "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                    },
+                    "buttons":[
+                      {
+                        "type":"web_url",
+                        "url":"https://petersfancybrownhats.com",
+                        "title":"View Website"
+                      },{
+                        "type":"postback",
+                        "title":"Start Chatting",
+                        "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                      }              
+                    ]      
+                  }
+                ]
+              }
+            }
+          };
+
+    return hotel_message;
+}
+
+function GetAirMessage()
+{
+    var flight_message = 
+    "message": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "airline_boardingpass",
+        "intro_message": "You are checked in.",
+        "locale": "en_US",
+        "boarding_pass": [
+          {
+            "passenger_name": "SMITH\/NICOLAS",
+            "pnr_number": "CG4X7U",
+            "seat": "74J",            
+            "logo_image_url": "https:\/\/www.example.com\/en\/logo.png",
+            "header_image_url": "https:\/\/www.example.com\/en\/fb\/header.png",
+            "qr_code": "M1SMITH\/NICOLAS  CG4X7U nawouehgawgnapwi3jfa0wfh",
+            "above_bar_code_image_url": "https:\/\/www.example.com\/en\/PLAT.png",
+            "auxiliary_fields": [
+              {
+                "label": "Terminal",
+                "value": "T1"
+              },
+              {
+                "label": "Departure",
+                "value": "30OCT 19:05"
+              }
+            ],
+            "secondary_fields": [
+              {
+                "label": "Boarding",
+                "value": "18:30"
+              },
+              {
+                "label": "Gate",
+                "value": "D57"
+              },
+              {
+                "label": "Seat",
+                "value": "74J"
+              },
+              {
+                "label": "Sec.Nr.",
+                "value": "003"
+              }
+            ],
+            "flight_info": {
+              "flight_number": "KL0642",
+              "departure_airport": {
+                "airport_code": "JFK",
+                "city": "New York",
+                "terminal": "T1",
+                "gate": "D57"
+              },
+              "arrival_airport": {
+                "airport_code": "AMS",
+                "city": "Amsterdam"
+              },
+              "flight_schedule": {
+                "departure_time": "2016-01-02T19:05",
+                "arrival_time": "2016-01-05T17:30"
+              }
+            }
+          }
+        ]
+      }
+    }
+  };
+
+  return flight_message;
 
 }
