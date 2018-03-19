@@ -150,15 +150,15 @@ function GetHotelMessage()
                     "subtitle":"We've got the right hat for everyone.",
                     "default_action": {
                       "type": "web_url",
-                      "url": "",
+                      "url": "https://nodetestproject.herokuapp.com/",
                       "messenger_extensions": false,
                       "webview_height_ratio": "tall",
-                      "fallback_url": ""
+                      "fallback_url": "https://nodetestproject.herokuapp.com/"
                     },
                     "buttons":[
                       {
                         "type":"web_url",
-                        "url":"",
+                        "url":"https://nodetestproject.herokuapp.com/",
                         "title":"View Website"
                       },{
                         "type":"postback",
