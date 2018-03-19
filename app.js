@@ -3,7 +3,7 @@ var bodyParser = require("body-parser");
 var request = require("request");
 var apiai = require('apiai');
 
-var apiaiapp = apiai("21cfd0e76ebf40eab3bf515b96984d90", { language: 'es' });
+
 
 var app = express();
 app.use(bodyParser.urlencoded({
@@ -86,6 +86,7 @@ function SendMessageFacebookChat(event, text_response)
 //APIAI integration
 function processMessage(event)
 {
+    var apiaiapp = apiai("21cfd0e76ebf40eab3bf515b96984d90", { language: 'es' });
     console.log("processing message");
     var requestapiai = apiaiapp.textRequest(event.message.text, 
     {
