@@ -139,7 +139,6 @@ function GetHotelMessage()
 {
     var hotel_message =
         {
-            "message":{
             "attachment":{
               "type":"template",
               "payload":{
@@ -171,7 +170,6 @@ function GetHotelMessage()
                 ]
               }
             }
-          }
       };
 
     return hotel_message;
