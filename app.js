@@ -104,4 +104,6 @@ function processMessage(event)
         console.log(error);
     });
 
+    requestapiai.end();
+
 }
