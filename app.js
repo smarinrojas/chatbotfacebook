@@ -145,9 +145,9 @@ function GetHotelMessage()
                 "template_type":"generic",
                 "elements":[
                    {
-                    "title":"Welcome to Peter's Hats",
+                    "title":"Hotel de prueba",
                     "image_url":"https://photos.mandarinoriental.com/is/image/MandarinOriental/santiago-hotel-exterior-pool?wid=720&hei=1080&fmt=jpeg&qlt=75,0&op_sharpen=0&resMode=sharp2&op_usm=0.8,0.8,5,0&iccEmbed=0&printRes=72&fit=crop",
-                    "subtitle":"We've got the right hat for everyone.",
+                    "subtitle":"Excelente hotel para quedarse",
                     "default_action": {
                       "type": "web_url",
                       "url": "https://nodetestproject.herokuapp.com/",
@@ -158,7 +158,7 @@ function GetHotelMessage()
                       {
                         "type":"web_url",
                         "url":"https://nodetestproject.herokuapp.com/",
-                        "title":"View Website"
+                        "title":"Reservar este hotel"
                       },{
                         "type":"postback",
                         "title":"Start Chatting",
@@ -177,7 +177,7 @@ function GetHotelMessage()
 function GetAirMessage()
 {
     var flight_message = 
-    {"message": {
+    {
         "attachment": {
           "type": "template",
           "payload": {
@@ -186,13 +186,13 @@ function GetAirMessage()
             "locale": "en_US",
             "boarding_pass": [
               {
-                "passenger_name": "SMITH\/NICOLAS",
+                "passenger_name": "Santiago Marín rojas",
                 "pnr_number": "CG4X7U",
                 "seat": "74J",            
-                "logo_image_url": "https:\/\/www.example.com\/en\/logo.png",
-                "header_image_url": "https:\/\/www.example.com\/en\/fb\/header.png",
-                "qr_code": "M1SMITH\/NICOLAS  CG4X7U nawouehgawgnapwi3jfa0wfh",
-                "above_bar_code_image_url": "https:\/\/www.example.com\/en\/PLAT.png",
+                "logo_image_url": "",
+                "header_image_url": "",
+                "qr_code": "nawouehgawgnapwi3jfa0wfh",
+                "above_bar_code_image_url": "https://nodetestproject.herokuapp.com/",
                 "auxiliary_fields": [
                   {
                     "label": "Terminal",
@@ -242,7 +242,6 @@ function GetAirMessage()
             ]
           }
         }
-      }
     };
 
   return flight_message;
