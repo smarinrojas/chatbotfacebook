@@ -31,6 +31,12 @@ app.get('/terms', function(req, res)
   res.send("Terms and conditions!");
 });
 
+
+app.get('/logo', function(req, res)
+{
+    res.sendFile('logo.png');
+});
+
 // Facebook Webhook
 // Used for verification
 app.get("/webhook", function(req, res) {
