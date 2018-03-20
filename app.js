@@ -34,7 +34,7 @@ app.get('/terms', function(req, res)
 
 app.get('/logo', function(req, res)
 {
-    res.sendFile('logo.png');
+    res.sendFile(__dirname + 'logo.png');
 });
 
 // Facebook Webhook
