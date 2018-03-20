@@ -195,7 +195,7 @@ function GetAirMessage()
                 "passenger_name": "Santiago Marín rojas",
                 "pnr_number": "CG4X7U",
                 "seat": "74J",            
-                "logo_image_url": "",
+                "logo_image_url": "https://nodetestproject.herokuapp.com/logo",
                 "header_image_url": "",
                 "qr_code": "nawouehgawgnapwi3jfa0wfh",
                 "above_bar_code_image_url": "https://nodetestproject.herokuapp.com/",
