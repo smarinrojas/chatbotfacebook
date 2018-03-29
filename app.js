@@ -51,7 +51,7 @@ app.get("/webhook", function(req, res) {
 
 app.post('/webhookdialog', function(req, res)
 {
-    console.log(req);
+    console.log(req.body);
     var response = "This is a sample response from your webhook!";
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({ "speech": response, "displayText": response }));
